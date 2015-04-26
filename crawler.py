@@ -6,10 +6,17 @@ def search(word):
 
     soup_strainer = SoupStrainer('li.g')
     soup = BeautifulSoup(response.text)
-    print(soup.select('li.g'))
+    li_tags = soup.select('li.g')
     
-    for li_tag in soup:
-        # a_tag = li_tag.select('h3.r > a:first-child')
-        print(li_tag)
+    for li_tag in li_tags:
+        a_tag = li_tag.select('h3.r > a:first-child')
+
+        title = a_tag[0].get_text()
+        url = formata_url(a_tag[0].get('href'))
+        print(title)
+        print(url)
+
+def formata_url(url):
+	return url[url.find('http'):url.find('&sa')]
 
 search('python')
